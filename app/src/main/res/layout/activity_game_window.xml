@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".GameWindow">
 
     <Button
-        android:id="@+id/instBtn"
+        android:id="@+id/lostWinBtn"
         android:layout_width="255dp"
-        android:layout_height="45dp"
-        android:text="Instructions"
+        android:layout_height="46dp"
+        android:text="You lost. Return to main"
         android:textColor="@color/white"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,18 +18,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.898" />
-
-    <Button
-        android:id="@+id/playBtn"
-        android:layout_width="255dp"
-        android:layout_height="45dp"
-        android:background="@color/black"
-        android:text="Play"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.769" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
