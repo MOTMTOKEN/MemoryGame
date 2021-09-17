@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         buttonOne.setOnClickListener {
             val intent = Intent(this, InstructionsWindow::class.java)
             startActivity(intent)
-            Log.d("!!!", "Knapp funkar")
         }
     }
 }
