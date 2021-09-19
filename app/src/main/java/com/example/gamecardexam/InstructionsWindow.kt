@@ -17,13 +17,7 @@ class InstructionsWindow : AppCompatActivity() {
         buttonSecond.setOnClickListener {
             val intentTwo = Intent(this, MainActivity::class.java)
             startActivity(intentTwo)
-            Log.d("!!!","Bakåt knappen funkar!!")
         }
-        /*val actionBar = supportActionBar //Adds arrow on upper left corner
-        actionBar!!.title = "Instructions" //Name this activity on the app
-        actionBar.setDisplayHomeAsUpEnabled(true)
-        Log.d("!!!","Pilen funkar!")*/
-
 
     }
 }

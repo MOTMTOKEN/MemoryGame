@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/gradient_bg">
 
     <Button
         android:id="@+id/instBtn"
         android:layout_width="255dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_dsgn"
         android:text="Instructions"
-        android:textColor="@color/white"
-        android:background="@color/black"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +23,8 @@
     <Button
         android:id="@+id/playBtn"
         android:layout_width="255dp"
-        android:layout_height="45dp"
-        android:background="@color/black"
+        android:layout_height="48dp"
+        android:background="@drawable/button_dsgn"
         android:text="Play"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
