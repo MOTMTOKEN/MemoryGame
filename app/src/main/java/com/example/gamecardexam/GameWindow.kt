@@ -41,15 +41,15 @@ class GameWindow : AppCompatActivity() {
 
 
         buttons = listOf(btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight,
-        btnNine, btnTen, btnEleven, btnTwelve)
+            btnNine, btnTen, btnEleven, btnTwelve)
         // A list of variables that are each button on the game
 
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
                 Log.d("!!!","Button works")
                 button.setImageResource(cards[index])
-        }
-
             }
+
         }
     }
+}
