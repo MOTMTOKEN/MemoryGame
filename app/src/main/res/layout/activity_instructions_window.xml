@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_list"
+    android:id="@+id/Background_id"
     tools:context=".InstructionsWindow"
-    android:background="@drawable/gradient_bg">
+    >
 
     <Button
         android:id="@+id/returnBtn"
@@ -28,7 +30,7 @@
 The player will ahve two chances beofre losing the game. A score counter will start for each time the player
 sucesss on the level. "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/black"
         android:textSize="27sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

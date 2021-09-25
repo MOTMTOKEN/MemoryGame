@@ -1,12 +1,14 @@
 package com.example.gamecardexam
 
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gamecardexam.R.drawable.*
 
 class GameWindow : AppCompatActivity() {
@@ -17,6 +19,12 @@ class GameWindow : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_window)
+
+        var myLayout = findViewById<ConstraintLayout>(R.id.Background_id)
+        val animDrawable = myLayout.background as AnimationDrawable
+        animDrawable.setEnterFadeDuration(2500)
+        animDrawable.setExitFadeDuration(5000)
+        animDrawable.start()
 
         val buttonLoseWin = findViewById<Button>(R.id.lostWinBtn)
         buttonLoseWin.setOnClickListener {
