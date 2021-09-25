@@ -6,21 +6,23 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
-import java.util.Collections.addAll
+import android.widget.Toast
+import com.example.gamecardexam.R.drawable.*
 
 class GameWindow : AppCompatActivity() {
+    private lateinit var buttons: List<ImageButton>
+    private lateinit var cards: List<CardMemory>
+    private var indexOfSingleSelectedCard : Int?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_window)
-
-        lateinit var buttons: List<ImageButton>
 
         val buttonLoseWin = findViewById<Button>(R.id.lostWinBtn)
         buttonLoseWin.setOnClickListener {
             val intentThree = Intent(this, MainActivity::class.java)
             startActivity(intentThree)
         }
-
         val btnOne = findViewById<ImageButton>(R.id.imageButton1)
         val btnTwo = findViewById<ImageButton>(R.id.imageButton2)
         val btnThree = findViewById<ImageButton>(R.id.imageButton3)
@@ -34,22 +36,69 @@ class GameWindow : AppCompatActivity() {
         val btnEleven = findViewById<ImageButton>(R.id.imageButton11)
         val btnTwelve = findViewById<ImageButton>(R.id.imageButton12)
 
-        val cards = mutableListOf(R.drawable.ic_reddit,R.drawable.ic_bug, R.drawable.ic_smiley,
-            R.drawable.ic_point, R.drawable.ic_gps, R.drawable.ic_moon)
-        cards.addAll(cards) //Duplicates the images for later pairing.
-        cards.shuffle() //Shuffle works for mutableListOf. Tried random but didn't work.
+        val images = mutableListOf(bug, gps, moon, point, reddit, smiley)
+        images.addAll(images)
+        images.shuffle()
 
+        buttons = listOf(btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine, btnTen,
+            btnEleven,
+            btnTwelve
+        )
 
-        buttons = listOf(btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight,
-            btnNine, btnTen, btnEleven, btnTwelve)
-        // A list of variables that are each button on the game
+        cards = buttons.indices.map { index ->
+            CardMemory(images[index], isFaceUp = false, isMatched = false)
+        }
 
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
-                Log.d("!!!","Button works")
-                button.setImageResource(cards[index])
+                updateModels(index)
+                updateViews()
             }
 
+        }
+    }
+
+    private fun updateViews() {
+        cards.forEachIndexed{ index, card ->
+            val button = buttons[index]
+            if (card.isMatched) {
+                button.alpha = 0.1f
+            }
+        if (card.isFaceUp){
+        button.setImageResource(card.identifier)
+        } else {
+            button.setImageResource(android)
+        }
+      }
+    }
+
+    private fun updateModels(position: Int) {
+        val card = cards[position]
+        if (card.isMatched) {
+            return
+        }
+        if (indexOfSingleSelectedCard == null) {
+            restoreCards()
+            indexOfSingleSelectedCard = position
+        } else {
+            checkForMatch(indexOfSingleSelectedCard!!, position)
+            indexOfSingleSelectedCard = null
+        }
+        card.isFaceUp = !card.isFaceUp
+    }
+
+    private fun restoreCards() {
+        for (card in cards) {
+            if (!card.isMatched) {
+                card.isFaceUp = false
+            }
+        }
+    }
+
+    private fun checkForMatch(position1: Int, position2: Int) {
+        if (cards[position1].identifier == cards[position2].identifier) {
+            cards[position1].isMatched = true
+            cards[position2].isMatched = true
         }
     }
 }

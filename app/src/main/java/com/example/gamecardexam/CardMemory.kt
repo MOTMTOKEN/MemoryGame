@@ -1,4 +1,4 @@
 package com.example.gamecardexam
 
-class CardMemory (var faceUp : Boolean, var pairCards : Boolean) {
+data class CardMemory (val identifier : Int ,var isFaceUp : Boolean, var isMatched : Boolean) {
 }
