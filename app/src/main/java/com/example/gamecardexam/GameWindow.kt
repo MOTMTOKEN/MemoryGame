@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
@@ -16,6 +17,7 @@ class GameWindow : AppCompatActivity() {
     private lateinit var cards: List<CardMemory>
     private var indexOfSingleSelectedCard : Int?= null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_window)
@@ -25,6 +27,9 @@ class GameWindow : AppCompatActivity() {
         animDrawable.setEnterFadeDuration(2500)
         animDrawable.setExitFadeDuration(5000)
         animDrawable.start()
+
+
+
 
         val buttonLoseWin = findViewById<Button>(R.id.lostWinBtn)
         buttonLoseWin.setOnClickListener {
@@ -107,6 +112,7 @@ class GameWindow : AppCompatActivity() {
         if (cards[position1].identifier == cards[position2].identifier) {
             cards[position1].isMatched = true
             cards[position2].isMatched = true
+
         }
     }
 }

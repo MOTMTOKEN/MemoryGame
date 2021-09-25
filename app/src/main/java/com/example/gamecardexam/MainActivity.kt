@@ -6,8 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
 import android.widget.Button
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import android.view.animation.RotateAnimation
+import android.view.animation.AccelerateDecelerateInterpolator
+
+import android.animation.ObjectAnimator
+
+
+
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +35,16 @@ class MainActivity : AppCompatActivity() {
         animDrawable.setEnterFadeDuration(2500)
         animDrawable.setExitFadeDuration(5000)
         animDrawable.start()
+
+        val logo = findViewById<ImageView>(R.id.mainLogo)
+
+
+        val animation = ObjectAnimator.ofFloat(logo, "rotationY", 0.0f, 180f)
+        animation.duration = 7000
+        animation.repeatCount = ObjectAnimator.INFINITE
+        animation.interpolator = AccelerateDecelerateInterpolator()
+        animation.start()
+
 
         val buttonOne = findViewById<Button>(R.id.instBtn)
         val buttonPlay = findViewById<Button>(R.id.playBtn)
