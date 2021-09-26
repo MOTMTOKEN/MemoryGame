@@ -11,9 +11,10 @@
         <entry key="app/src/main/res/drawable/gradient_list.xml" value="0.15625" />
         <entry key="app/src/main/res/drawable/ic_android_black.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.22685185185185186" />
-        <entry key="app/src/main/res/layout/activity_game_window.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_instructions_window.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21095672754851527" />
+        <entry key="app/src/main/res/layout/activity_game_window.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_instructions_window.xml" value="0.36389471977304794" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.16847826086956522" />
       </map>
     </option>
   </component>
