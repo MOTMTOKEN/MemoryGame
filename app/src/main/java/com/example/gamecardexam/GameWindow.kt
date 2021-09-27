@@ -11,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gamecardexam.R.drawable.*
+import kotlinx.android.synthetic.main.activity_game_window.*
 
 class GameWindow : AppCompatActivity() {
     private lateinit var buttons: List<ImageButton>
@@ -36,6 +37,13 @@ class GameWindow : AppCompatActivity() {
             val intentThree = Intent(this, MainActivity::class.java)
             startActivity(intentThree)
         }
+
+        refreshButton.setOnClickListener {
+            val t = Intent(this, GameWindow::class.java)
+            startActivity(t)
+            finish()
+        }
+
         val btnOne = findViewById<ImageButton>(R.id.imageButton1)
         val btnTwo = findViewById<ImageButton>(R.id.imageButton2)
         val btnThree = findViewById<ImageButton>(R.id.imageButton3)
@@ -88,6 +96,7 @@ class GameWindow : AppCompatActivity() {
     private fun updateModels(position: Int) {
         val card = cards[position]
         if (card.isMatched) {
+            Toast.makeText(this, "Try again", Toast.LENGTH_SHORT).show()
             return
         }
         if (indexOfSingleSelectedCard == null) {
@@ -110,6 +119,7 @@ class GameWindow : AppCompatActivity() {
 
     private fun checkForMatch(position1: Int, position2: Int) {
         if (cards[position1].identifier == cards[position2].identifier) {
+            Toast.makeText(this, "correct", Toast.LENGTH_SHORT).show()
             cards[position1].isMatched = true
             cards[position2].isMatched = true
 

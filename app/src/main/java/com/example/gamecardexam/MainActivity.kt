@@ -31,14 +31,14 @@ class MainActivity : AppCompatActivity() {
         animDrawable.setExitFadeDuration(5000)
         animDrawable.start()
 
-        /*val logo = findViewById<ImageView>(R.id.mainLogo)
+        val logo = findViewById<ImageView>(R.id.mainLogo)
 
 
-        val animation = ObjectAnimator.ofFloat(logo, "rotationY", 0.0f, 180f)
-        animation.duration = 7000
+        val animation = ObjectAnimator.ofFloat(logo, "rotationY", 0.0f,360f)
+        animation.duration = 10000
         animation.repeatCount = ObjectAnimator.INFINITE
         animation.interpolator = AccelerateDecelerateInterpolator()
-        animation.start()*/
+        animation.start()
 
 
         val buttonOne = findViewById<Button>(R.id.instBtn)
