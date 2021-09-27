@@ -37,13 +37,13 @@
 
     <ImageView
         android:id="@+id/mainLogo"
-        android:layout_width="200sp"
-        android:layout_height="200sp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         app:layout_constraintBottom_toTopOf="@+id/playBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_android_black_24dp" />
+        app:srcCompat="@drawable/itsmemorylogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout
     >

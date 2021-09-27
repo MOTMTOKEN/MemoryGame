@@ -15,12 +15,7 @@ import android.view.animation.RotateAnimation
 import android.view.animation.AccelerateDecelerateInterpolator
 
 import android.animation.ObjectAnimator
-
-
-
-
-
-
+import android.media.MediaPlayer
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,18 +31,20 @@ class MainActivity : AppCompatActivity() {
         animDrawable.setExitFadeDuration(5000)
         animDrawable.start()
 
-        val logo = findViewById<ImageView>(R.id.mainLogo)
+        /*val logo = findViewById<ImageView>(R.id.mainLogo)
 
 
         val animation = ObjectAnimator.ofFloat(logo, "rotationY", 0.0f, 180f)
         animation.duration = 7000
         animation.repeatCount = ObjectAnimator.INFINITE
         animation.interpolator = AccelerateDecelerateInterpolator()
-        animation.start()
+        animation.start()*/
 
 
         val buttonOne = findViewById<Button>(R.id.instBtn)
         val buttonPlay = findViewById<Button>(R.id.playBtn)
+
+
 
         buttonPlay.setOnClickListener {
             val intentClick = Intent(this,GameWindow::class.java)
@@ -57,5 +54,13 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, InstructionsWindow::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    companion object{
+        var mp: MediaPlayer? = null
     }
 }
