@@ -27,11 +27,11 @@
         android:layout_width="211dp"
         android:layout_height="546dp"
         android:text="The game is based on guessing pairs of cards from twelwe cards shown up-side-down.
-The player will have two chances before losing the game. A score counter will start for each time the player
-sucesss on the level. "
+If the player has guessed wrong, the cards will turn back automatically. There is a refresh button on the upper
+right corner that restores all the cards"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000"
-        android:textSize="27sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.035"

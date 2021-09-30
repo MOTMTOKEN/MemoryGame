@@ -2,6 +2,7 @@ package com.example.gamecardexam
 
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,12 +16,15 @@ import kotlinx.android.synthetic.main.activity_game_window.*
 
 class GameWindow : AppCompatActivity() {
     private lateinit var buttons: List<ImageButton>
+    // en lista av Imagebutton
     private lateinit var cards: List<CardMemory>
+    // en lista av klassen CardMemory
     private var indexOfSingleSelectedCard : Int?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_game_window)
 
         var myLayout = findViewById<ConstraintLayout>(R.id.Background_id)
@@ -28,8 +32,6 @@ class GameWindow : AppCompatActivity() {
         animDrawable.setEnterFadeDuration(2500)
         animDrawable.setExitFadeDuration(5000)
         animDrawable.start()
-
-
 
 
         val buttonLoseWin = findViewById<Button>(R.id.lostWinBtn)
@@ -44,27 +46,13 @@ class GameWindow : AppCompatActivity() {
             finish()
         }
 
-        val btnOne = findViewById<ImageButton>(R.id.imageButton1)
-        val btnTwo = findViewById<ImageButton>(R.id.imageButton2)
-        val btnThree = findViewById<ImageButton>(R.id.imageButton3)
-        val btnFour = findViewById<ImageButton>(R.id.imageButton4)
-        val btnFive = findViewById<ImageButton>(R.id.imageButton5)
-        val btnSix = findViewById<ImageButton>(R.id.imageButton6)
-        val btnSeven = findViewById<ImageButton>(R.id.imageButton7)
-        val btnEight = findViewById<ImageButton>(R.id.imageButton8)
-        val btnNine = findViewById<ImageButton>(R.id.imageButton9)
-        val btnTen = findViewById<ImageButton>(R.id.imageButton10)
-        val btnEleven = findViewById<ImageButton>(R.id.imageButton11)
-        val btnTwelve = findViewById<ImageButton>(R.id.imageButton12)
-
         val images = mutableListOf(bug, gps, moon, point, reddit, smiley)
         images.addAll(images)
         images.shuffle()
 
-        buttons = listOf(btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine, btnTen,
-            btnEleven,
-            btnTwelve
-        )
+        buttons = listOf(imageButton1, imageButton2, imageButton3, imageButton4, imageButton5,
+            imageButton6, imageButton7, imageButton8, imageButton9, imageButton10,
+            imageButton11, imageButton12)
 
         cards = buttons.indices.map { index ->
             CardMemory(images[index], isFaceUp = false, isMatched = false)
@@ -75,7 +63,6 @@ class GameWindow : AppCompatActivity() {
                 updateModels(index)
                 updateViews()
             }
-
         }
     }
 
