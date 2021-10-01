@@ -25,10 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var mediaPlayer = MediaPlayer.create(this, R.raw.gamemusic)
-        mediaPlayer.setVolume(100f,100f)
-        mediaPlayer.start()
-        mediaPlayer!!.isLooping = true
 
         var myLayout = findViewById<ConstraintLayout>(R.id.Background_id)
         val animDrawable = myLayout.background as AnimationDrawable
