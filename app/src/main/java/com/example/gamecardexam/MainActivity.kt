@@ -16,10 +16,13 @@ import android.view.animation.AccelerateDecelerateInterpolator
 
 import android.animation.ObjectAnimator
 import android.media.MediaPlayer
+import androidx.room.Room
+import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var db : AppDataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +58,43 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, InstructionsWindow::class.java)
             startActivity(intent)
         }
+
+        db = Room.databaseBuilder(applicationContext,
+            AppDataBase::class.java,
+            "retry_attempts"
+        ).fallbackToDestructiveMigration()
+            .build()
+
+        val item1 = Item(0, 10)
+        //val item2 = Item(0, 20)
+        //val item3 = Item(0, 30)
+
+        //saveTries(item1)
+
+        GlobalScope.launch {
+            val itemsList = loadItem().await()
+        }
+
+
+
+
+
+
     }
+
+    fun saveTries(item : Item){
+
+        GlobalScope.launch(Dispatchers.IO) {
+            db.itemDao().insert(item)
+        }
+    }
+
+    fun loadItem() : Deferred<List<Item>> =
+        GlobalScope.async(Dispatchers.IO) {
+        db.itemDao().get()
+    }
+
+
 
     override fun onResume() {
         super.onResume()
