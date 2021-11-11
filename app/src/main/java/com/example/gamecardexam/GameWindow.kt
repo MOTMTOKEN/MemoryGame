@@ -35,7 +35,6 @@ class GameWindow : AppCompatActivity() {
         var counter = findViewById<TextView>(R.id.textCounter)
         val buttonLoseWin = findViewById<Button>(R.id.lostWinBtn)
 
-
         buttonLoseWin.setOnClickListener {
             val intentThree = Intent(this, MainActivity::class.java)
             startActivity(intentThree)
@@ -64,7 +63,7 @@ class GameWindow : AppCompatActivity() {
                 var list = loadItem().await()
                 for (item in list) {
                     Log.d("!!!", "${item.retry}")
-                    var newValue = item.retry + 1
+                    item.retry += 1
                     // save to data
                     counter.text = item.retry.toString()
                 }
@@ -100,8 +99,8 @@ class GameWindow : AppCompatActivity() {
         }
         */
 
-    //     var item1 = Item(1, "1")
-    //     saveTries(item1)
+//        var item1 = Item(1, "1")
+//        saveTries(item1)
     }
     fun saveTries(item : Item){
         GlobalScope.launch(Dispatchers.IO) {
