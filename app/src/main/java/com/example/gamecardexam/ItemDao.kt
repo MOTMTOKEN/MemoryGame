@@ -9,8 +9,8 @@ import androidx.room.Query
 @Dao
 interface ItemDao {
 
-    @Query("SELECT * FROM item_table")
-    fun get(): List<Item>
+  //  @Query("SELECT * FROM item_table")
+    //fun get(): List<Item>
 
     @Insert
     fun insert(item : Item)
@@ -18,7 +18,11 @@ interface ItemDao {
     @Delete
     fun delete(item: Item)
 
-   // @Query("SELECT * FROM ITEM_TABLE WHERE retry LIKE :categoryTry ")
-    //fun find(categoryTry: Int) : List<Item>
+   @Query("SELECT * FROM new_table ")
+    fun find() : List<Item>
+/*
+     @Query("SELECT * FROM new_table WHERE retries LIKE :categoryTry ")
+    fun find(categoryTry: String) : List<Item>
 
+ */
 }

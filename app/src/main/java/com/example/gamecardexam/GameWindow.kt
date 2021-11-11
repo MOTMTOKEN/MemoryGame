@@ -9,10 +9,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.room.Room
 import com.example.gamecardexam.R.drawable.*
 import kotlinx.android.synthetic.main.activity_game_window.*
+import kotlinx.coroutines.*
 
 class GameWindow : AppCompatActivity() {
     private lateinit var buttons: List<ImageButton>
@@ -20,6 +23,8 @@ class GameWindow : AppCompatActivity() {
     private lateinit var cards: List<CardMemory>
     // en lista av klassen CardMemory
     private var indexOfSingleSelectedCard : Int?= null
+    private lateinit var db : AppDataBase
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +38,8 @@ class GameWindow : AppCompatActivity() {
         animDrawable.setExitFadeDuration(5000)
         animDrawable.start()
 
+        var counter = findViewById<TextView>(R.id.textCounter)
+
 
         val buttonLoseWin = findViewById<Button>(R.id.lostWinBtn)
         buttonLoseWin.setOnClickListener {
@@ -40,11 +47,52 @@ class GameWindow : AppCompatActivity() {
             startActivity(intentThree)
         }
 
+        db = Room.databaseBuilder(applicationContext,
+            AppDataBase::class.java,
+            "retry_attempts"
+        ).fallbackToDestructiveMigration()
+            .build()
+
+        /*
+        GlobalScope.launch {
+
+            var itemsList = loadItem().await()
+            itemsList +=1
+            counter.text = itemsList.toString()
+        }
+    */
+
+        //var list = loadByCategory("retry")
+
+        //counter.text = list.toString()
+        //counter.text = loadByCategory().toString()
+        //var yo = loadItem().toString()
+
+        //Log.d("!!!", "$yo")
+
+
+
         refreshButton.setOnClickListener {
+
+
+            GlobalScope.launch(Dispatchers.Main) {
+
+                var list = loadItem().await()
+                for (item in list) {
+                    Log.d("!!!", "${item.retry}")
+                     var newValue = item.retry + 1
+                    // save to data
+                    counter.text = item.retry.toString()
+                }
+            }
+
+
             val t = Intent(this, GameWindow::class.java)
             startActivity(t)
             finish()
         }
+
+
 
         val images = mutableListOf(bug, gps, moon, point, reddit, smiley)
         images.addAll(images)
@@ -64,6 +112,44 @@ class GameWindow : AppCompatActivity() {
                 updateViews()
             }
         }
+
+
+
+/*
+        GlobalScope.launch(Dispatchers.Main) {
+            val list = loadItem().await()
+            for (item in list) {
+                Log.d("!!!", "$item")
+            }
+        }
+        */
+
+
+       // var item1 = Item(1, "1")
+
+       // saveTries(item1)
+    }
+
+    fun saveTries(item : Item){
+
+        GlobalScope.launch(Dispatchers.IO) {
+            db.itemDao().insert(item)
+        }
+    }
+
+
+    fun loadItem() : Deferred<List<Item>> =
+        GlobalScope.async(Dispatchers.IO) {
+            db.itemDao().find()
+        }
+
+
+
+    fun loadByCategory() {
+        GlobalScope.async(Dispatchers.IO) {
+
+            db.itemDao().find()
+        }
     }
 
     private fun updateViews() {
@@ -79,6 +165,7 @@ class GameWindow : AppCompatActivity() {
         }
       }
     }
+
 
     private fun updateModels(position: Int) {
         val card = cards[position]

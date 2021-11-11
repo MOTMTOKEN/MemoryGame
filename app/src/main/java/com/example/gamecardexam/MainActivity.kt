@@ -22,7 +22,7 @@ import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var db : AppDataBase
+   // private lateinit var db : AppDataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,21 +59,22 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        /*
         db = Room.databaseBuilder(applicationContext,
             AppDataBase::class.java,
             "retry_attempts"
         ).fallbackToDestructiveMigration()
             .build()
-
-        val item1 = Item(0, 10)
+         */
+        //val item1 = Item(0, 10)
         //val item2 = Item(0, 20)
         //val item3 = Item(0, 30)
 
         //saveTries(item1)
 
-        GlobalScope.launch {
-            val itemsList = loadItem().await()
-        }
+       // GlobalScope.launch {
+         //   val itemsList = loadItem().await()
+        //}
 
 
 
@@ -82,17 +83,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun saveTries(item : Item){
 
-        GlobalScope.launch(Dispatchers.IO) {
-            db.itemDao().insert(item)
-        }
-    }
-
-    fun loadItem() : Deferred<List<Item>> =
-        GlobalScope.async(Dispatchers.IO) {
-        db.itemDao().get()
-    }
 
 
 
