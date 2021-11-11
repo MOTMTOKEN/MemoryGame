@@ -75,22 +75,10 @@ class MainActivity : AppCompatActivity() {
        // GlobalScope.launch {
          //   val itemsList = loadItem().await()
         //}
-
-
-
-
-
-
     }
-
-
-
-
-
     override fun onResume() {
         super.onResume()
     }
-
     companion object{
         var mp: MediaPlayer? = null
     }

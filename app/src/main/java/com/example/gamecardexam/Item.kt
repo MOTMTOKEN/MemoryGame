@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "new_table")
 data class Item (
     @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "retries") var retry: String
+    @ColumnInfo(name = "retries") var retry: Int
         )
