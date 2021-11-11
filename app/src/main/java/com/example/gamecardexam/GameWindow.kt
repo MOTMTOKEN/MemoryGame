@@ -34,7 +34,10 @@ class GameWindow : AppCompatActivity() {
         animDrawable.start()
 
         var counter = findViewById<TextView>(R.id.textCounter)
+        var viewTries = findViewById<TextView>(R.id.numberOfTriesText)
         val buttonLoseWin = findViewById<Button>(R.id.lostWinBtn)
+
+        viewTries.text = "Number of tries:"
 
         GlobalScope.launch(Dispatchers.Main) {
             var list = loadItem().await().toMutableList()

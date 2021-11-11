@@ -12,7 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_android_black.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.22685185185185186" />
         <entry key="app/src/main/res/drawable/ic_baseline_refresh_24.xml" value="0.2101851851851852" />
-        <entry key="app/src/main/res/layout/activity_game_window.xml" value="0.2564251888451684" />
+        <entry key="app/src/main/res/layout/activity_game_window.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_instructions_window.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21095672754851527" />
       </map>
