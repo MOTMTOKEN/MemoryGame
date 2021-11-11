@@ -24,6 +24,7 @@ class GameWindow : AppCompatActivity() {
     private lateinit var db : AppDataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_window)
         var myLayout = findViewById<ConstraintLayout>(R.id.Background_id)
@@ -34,6 +35,30 @@ class GameWindow : AppCompatActivity() {
 
         var counter = findViewById<TextView>(R.id.textCounter)
         val buttonLoseWin = findViewById<Button>(R.id.lostWinBtn)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            var list = loadItem().await().toMutableList()
+
+            if (list.isEmpty() ) {
+                val newItem = Item(0 , 0)
+                list.add(newItem)
+            }
+
+           val item = list[0]
+            Log.d("!!!", "${item.retry}")
+            delete(item)
+
+            item.retry += 1
+                // save to data
+            counter.text = item.retry.toString()
+
+
+            // 1. delete  item
+            //2. insert item
+
+            saveTries(item)
+        }
+
 
         buttonLoseWin.setOnClickListener {
             val intentThree = Intent(this, MainActivity::class.java)
@@ -59,20 +84,14 @@ class GameWindow : AppCompatActivity() {
 
         refreshButton.setOnClickListener {
 
-            GlobalScope.launch(Dispatchers.Main) {
-                var list = loadItem().await()
-                for (item in list) {
-                    Log.d("!!!", "${item.retry}")
-                    item.retry += 1
-                    // save to data
-                    counter.text = item.retry.toString()
-                }
-            }
+
 
             val t = Intent(this, GameWindow::class.java)
             startActivity(t)
             finish()
         }
+
+
 
         val images = mutableListOf(bug, gps, moon, point, reddit, smiley)
         images.addAll(images)
@@ -102,6 +121,14 @@ class GameWindow : AppCompatActivity() {
 //        var item1 = Item(1, "1")
 //        saveTries(item1)
     }
+
+    private fun delete(item: Item) {
+        GlobalScope.launch (Dispatchers.IO) {
+            db.itemDao().delete(item)
+        }
+
+    }
+
     fun saveTries(item : Item){
         GlobalScope.launch(Dispatchers.IO) {
             db.itemDao().insert(item)
@@ -113,11 +140,7 @@ class GameWindow : AppCompatActivity() {
             db.itemDao().find()
         }
 
-    fun loadByCategory() {
-        GlobalScope.async(Dispatchers.IO) {
-            db.itemDao().find()
-        }
-    }
+
     private fun updateViews() {
         cards.forEachIndexed{ index, card ->
             val button = buttons[index]
@@ -162,9 +185,3 @@ class GameWindow : AppCompatActivity() {
         }
     }
 }
-
-/*fun saveScore(highScore : HighScore) {
-    launch(Dispatchers.IO) {
-        db.HighScoreDao().insert(highScore)
-    }
-}*/
