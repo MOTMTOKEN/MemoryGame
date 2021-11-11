@@ -1,5 +1,4 @@
 package com.example.gamecardexam
-
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.media.MediaPlayer
@@ -16,7 +15,6 @@ import androidx.room.Room
 import com.example.gamecardexam.R.drawable.*
 import kotlinx.android.synthetic.main.activity_game_window.*
 import kotlinx.coroutines.*
-
 class GameWindow : AppCompatActivity() {
     private lateinit var buttons: List<ImageButton>
     // en lista av Imagebutton
@@ -25,13 +23,9 @@ class GameWindow : AppCompatActivity() {
     private var indexOfSingleSelectedCard : Int?= null
     private lateinit var db : AppDataBase
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_game_window)
-
         var myLayout = findViewById<ConstraintLayout>(R.id.Background_id)
         val animDrawable = myLayout.background as AnimationDrawable
         animDrawable.setEnterFadeDuration(2500)
@@ -39,81 +33,63 @@ class GameWindow : AppCompatActivity() {
         animDrawable.start()
 
         var counter = findViewById<TextView>(R.id.textCounter)
-
-
         val buttonLoseWin = findViewById<Button>(R.id.lostWinBtn)
+
+
         buttonLoseWin.setOnClickListener {
             val intentThree = Intent(this, MainActivity::class.java)
             startActivity(intentThree)
         }
-
         db = Room.databaseBuilder(applicationContext,
             AppDataBase::class.java,
             "retry_attempts"
         ).fallbackToDestructiveMigration()
             .build()
-
         /*
         GlobalScope.launch {
-
             var itemsList = loadItem().await()
             itemsList +=1
             counter.text = itemsList.toString()
         }
     */
-
         //var list = loadByCategory("retry")
-
         //counter.text = list.toString()
         //counter.text = loadByCategory().toString()
         //var yo = loadItem().toString()
-
         //Log.d("!!!", "$yo")
-
-
 
         refreshButton.setOnClickListener {
 
-
             GlobalScope.launch(Dispatchers.Main) {
-
                 var list = loadItem().await()
                 for (item in list) {
                     Log.d("!!!", "${item.retry}")
-                     var newValue = item.retry + 1
+                    var newValue = item.retry + 1
                     // save to data
                     counter.text = item.retry.toString()
                 }
             }
-
 
             val t = Intent(this, GameWindow::class.java)
             startActivity(t)
             finish()
         }
 
-
-
         val images = mutableListOf(bug, gps, moon, point, reddit, smiley)
         images.addAll(images)
         images.shuffle()
-
         buttons = listOf(imageButton1, imageButton2, imageButton3, imageButton4, imageButton5,
             imageButton6, imageButton7, imageButton8, imageButton9, imageButton10,
             imageButton11, imageButton12)
-
         cards = buttons.indices.map { index ->
             CardMemory(images[index], isFaceUp = false, isMatched = false)
         }
-
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
                 updateModels(index)
                 updateViews()
             }
         }
-
-
 
 /*
         GlobalScope.launch(Dispatchers.Main) {
@@ -124,48 +100,38 @@ class GameWindow : AppCompatActivity() {
         }
         */
 
-
-       // var item1 = Item(1, "1")
-
-       // saveTries(item1)
+    //     var item1 = Item(1, "1")
+    //     saveTries(item1)
     }
-
     fun saveTries(item : Item){
-
         GlobalScope.launch(Dispatchers.IO) {
             db.itemDao().insert(item)
         }
     }
-
 
     fun loadItem() : Deferred<List<Item>> =
         GlobalScope.async(Dispatchers.IO) {
             db.itemDao().find()
         }
 
-
-
     fun loadByCategory() {
         GlobalScope.async(Dispatchers.IO) {
-
             db.itemDao().find()
         }
     }
-
     private fun updateViews() {
         cards.forEachIndexed{ index, card ->
             val button = buttons[index]
             if (card.isMatched) {
                 button.alpha = 0.1f
             }
-        if (card.isFaceUp){
-        button.setImageResource(card.identifier)
-        } else {
-            button.setImageResource(android)
+            if (card.isFaceUp){
+                button.setImageResource(card.identifier)
+            } else {
+                button.setImageResource(android)
+            }
         }
-      }
     }
-
 
     private fun updateModels(position: Int) {
         val card = cards[position]
@@ -182,7 +148,6 @@ class GameWindow : AppCompatActivity() {
         }
         card.isFaceUp = !card.isFaceUp
     }
-
     private fun restoreCards() {
         for (card in cards) {
             if (!card.isMatched) {
@@ -190,13 +155,17 @@ class GameWindow : AppCompatActivity() {
             }
         }
     }
-
     private fun checkForMatch(position1: Int, position2: Int) {
         if (cards[position1].identifier == cards[position2].identifier) {
             Toast.makeText(this, "correct", Toast.LENGTH_SHORT).show()
             cards[position1].isMatched = true
             cards[position2].isMatched = true
-
         }
     }
 }
+
+/*fun saveScore(highScore : HighScore) {
+    launch(Dispatchers.IO) {
+        db.HighScoreDao().insert(highScore)
+    }
+}*/
